@@ -3,8 +3,10 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import Root from "./pages/Root.jsx";
 import Welcome from "./pages/Welcome.jsx";
-import About from "./pages/About.jsx";
 import ErrorPage from "./pages/Error.jsx";
+import BrandPage, { brandLoader } from "./pages/BrandPage.jsx";
+import ModelPage, { modelsLoader } from "./pages/ModelPage.jsx";
+import ModelSpecsPage, { specsLoader } from "./pages/ModelSpecsPage.jsx";
 
 import {
   createBrowserRouter,
@@ -18,16 +20,12 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<Root />} errorElement={<ErrorPage />}>
       <Route index element={<Welcome />} />
-      <Route path="about" element={<About />} />
 
-      <Route
-      path="test-error"
-      loader={() => {
-      throw new Response("Тестова помилка", { status: 500 });
-      }}
-      element={<div>Test</div>}
-      errorElement={<ErrorPage />}
-      />
+      <Route path="brands" element={<BrandPage />} loader={brandLoader} errorElement={<ErrorPage />} />
+      <Route path="brands/:brandName" element={<BrandPage />} loader={brandLoader} errorElement={<ErrorPage />} />
+      <Route path="models" element={<ModelPage />} loader={modelsLoader} errorElement={<ErrorPage />} />
+      <Route path="models/:brandId" element={<ModelPage />} loader={modelsLoader} errorElement={<ErrorPage />} />
+      <Route path="models/:brandId/specs" element={<ModelSpecsPage />} loader={specsLoader} errorElement={<ErrorPage />} />
 
       <Route path="*" element={<ErrorPage />} />
     </Route>

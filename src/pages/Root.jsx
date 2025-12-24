@@ -38,7 +38,11 @@ export default function Root() {
             justifyContent: "space-between",
           }}
         >
-          <NavLink to="/" end style={linkStyle}>Home</NavLink>
+          <div>
+            <NavLink to="/" end style={linkStyle}>Home</NavLink>
+            <NavLink to="/brands" style={linkStyle}>Brands</NavLink>
+            <NavLink to="/models" style={linkStyle}>Models</NavLink>
+          </div>
           <NavLink to="/about" style={linkStyle}>About</NavLink>
         </nav>
       </header>
