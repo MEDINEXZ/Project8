@@ -4,6 +4,7 @@ import ReactDOM from "react-dom/client";
 import Root from "./pages/Root.jsx";
 import Welcome from "./pages/Welcome.jsx";
 import ErrorPage from "./pages/Error.jsx";
+import AdminArea from "./pages/AdminArea.jsx";
 import BrandPage, { brandLoader } from "./pages/BrandPage.jsx";
 import ModelPage, { modelsLoader } from "./pages/ModelPage.jsx";
 import ModelSpecsPage, { specsLoader } from "./pages/ModelSpecsPage.jsx";
@@ -20,6 +21,7 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<Root />} errorElement={<ErrorPage />}>
       <Route index element={<Welcome />} />
+      <Route path="admin" element={<AdminArea />} />
 
       <Route path="brands" element={<BrandPage />} loader={brandLoader} errorElement={<ErrorPage />} />
       <Route path="brands/:brandName" element={<BrandPage />} loader={brandLoader} errorElement={<ErrorPage />} />
