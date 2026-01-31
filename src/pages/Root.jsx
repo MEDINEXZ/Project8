@@ -1,5 +1,6 @@
 import { NavLink, Outlet } from "react-router-dom";
 
+
 const HEADER_HEIGHT = 64;
 
 const linkStyle = ({ isActive }) => ({
@@ -42,6 +43,7 @@ export default function Root() {
             <NavLink to="/" end style={linkStyle}>Home</NavLink>
             <NavLink to="/brands" style={linkStyle}>Brands</NavLink>
             <NavLink to="/models" style={linkStyle}>Models</NavLink>
+            <NavLink to="/resources" style={linkStyle}>Resources</NavLink>
           </div>
           <NavLink to="/about" style={linkStyle}>About</NavLink>
         </nav>
@@ -59,17 +61,6 @@ export default function Root() {
       >
         <Outlet />
       </main>
-
-      <footer
-        style={{
-          padding: "16px",
-          textAlign: "center",
-          color: "#6b7280",
-          borderTop: "1px solid #e5e7eb",
-        }}
-      >
-        Footer
-      </footer>
     </div>
   );
 }

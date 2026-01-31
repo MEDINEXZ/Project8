@@ -8,6 +8,7 @@ import AdminArea from "./pages/AdminArea.jsx";
 import BrandPage, { brandLoader } from "./pages/BrandPage.jsx";
 import ModelPage, { modelsLoader } from "./pages/ModelPage.jsx";
 import ModelSpecsPage, { specsLoader } from "./pages/ModelSpecsPage.jsx";
+import ResourceListPage, { listLoader } from "./pages/ResourceListPage.jsx";
 
 import {
   createBrowserRouter,
@@ -29,7 +30,15 @@ const router = createBrowserRouter(
       <Route path="models/:brandId" element={<ModelPage />} loader={modelsLoader} errorElement={<ErrorPage />} />
       <Route path="models/:brandId/specs" element={<ModelSpecsPage />} loader={specsLoader} errorElement={<ErrorPage />} />
 
+      <Route
+        path="resources"
+        element={<ResourceListPage />}
+        loader={listLoader}
+        errorElement={<ErrorPage />}
+      />
+
       <Route path="*" element={<ErrorPage />} />
+
     </Route>
   )
 );
