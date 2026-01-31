@@ -18,7 +18,6 @@ export async function listLoader({ request }) {
   const url = new URL(request.url);
   const query = url.searchParams.get("query");
 
-  // Якщо є параметр пошуку, фільтруємо mock дані
   if (query) {
     const filtered = mockMakes.filter((make) =>
       make.make_display.toLowerCase().includes(query.toLowerCase()) ||
@@ -27,30 +26,18 @@ export async function listLoader({ request }) {
     return filtered;
   }
 
-  // Спроба завантажити з API (якщо query відсутній)
   const apiUrl = "http://www.carqueryapi.com/api/0.3/";
+  const response = await fetch(apiUrl);
 
-  try {
-    const response = await fetch(apiUrl);
-
-    if (!response.ok) {
-      console.warn("API returned error, using mock data");
-      return mockMakes;
-    }
-
-    const data = await response.json();
-
-    // CarQuery возвращает объект вида { Makes: [...] }
-    if (!data?.Makes) {
-      console.warn("Unexpected API response, using mock data");
-      return mockMakes;
-    }
-
-    return data.Makes;
-  } catch (error) {
-    console.warn("Failed to fetch from API, using mock data:", error);
-    return mockMakes;
+  if (!response.ok) {
+    throw new Response(
+      JSON.stringify({ message: "Failed to fetch car makes" }),
+      { status: response.status }
+    );
   }
+
+  const data = await response.json();
+  return data.Makes || mockMakes;
 }
 
 export default function ResourceListPage() {

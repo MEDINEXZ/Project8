@@ -1,4 +1,4 @@
-import { NavLink, Outlet } from "react-router-dom";
+import { NavLink, Outlet, useNavigation } from "react-router-dom";
 
 
 const HEADER_HEIGHT = 64;
@@ -13,8 +13,36 @@ const linkStyle = ({ isActive }) => ({
 });
 
 export default function Root() {
+  const navigation = useNavigation();
+  const isLoading = navigation.state === "loading";
+
   return (
     <div>
+      {isLoading && (
+        <div
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            right: 0,
+            height: 4,
+            background: "#3f51b5",
+            zIndex: 9999,
+            animation: "loading 1s ease-in-out infinite",
+          }}
+        >
+          <style>
+            {`
+              @keyframes loading {
+                0% { transform: translateX(-100%); }
+                50% { transform: translateX(0%); }
+                100% { transform: translateX(100%); }
+              }
+            `}
+          </style>
+        </div>
+      )}
+
       <header style={{
           position: "fixed",
           top: 0,
