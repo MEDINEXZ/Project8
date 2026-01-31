@@ -1,4 +1,4 @@
-import { useLoaderData, useSearchParams } from "react-router-dom";
+import { useLoaderData, useSearchParams, Link } from "react-router-dom";
 import SearchForm from "./SearchForm.jsx";
 
 const mockMakes = [
@@ -26,18 +26,25 @@ export async function listLoader({ request }) {
     return filtered;
   }
 
-  const apiUrl = "http://www.carqueryapi.com/api/0.3/";
-  const response = await fetch(apiUrl);
+  try {
+    const apiUrl = "http://www.carqueryapi.com/api/0.3/";
+    const response = await fetch(apiUrl);
 
-  if (!response.ok) {
-    throw new Response(
-      JSON.stringify({ message: "Failed to fetch car makes" }),
-      { status: response.status }
-    );
+    if (!response.ok) {
+      throw new Response(
+        JSON.stringify({ message: "Failed to fetch car makes" }),
+        { status: response.status }
+      );
+    }
+
+    const data = await response.json();
+    return data.Makes || mockMakes;
+  } catch (error) {
+    if (error instanceof Response) {
+      throw error;
+    }
+    return mockMakes;
   }
-
-  const data = await response.json();
-  return data.Makes || mockMakes;
 }
 
 export default function ResourceListPage() {
@@ -65,7 +72,9 @@ export default function ResourceListPage() {
         <ul>
           {makes.slice(0, 20).map((m) => (
             <li key={m.make_id}>
-              <h3>{m.make_display}</h3>
+              <Link to={`/resources/${m.make_id}`}>
+                <h3>{m.make_display}</h3>
+              </Link>
               <p>Country: {m.make_country || "—"}</p>
             </li>
           ))}

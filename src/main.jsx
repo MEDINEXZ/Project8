@@ -9,6 +9,7 @@ import BrandPage, { brandLoader } from "./pages/BrandPage.jsx";
 import ModelPage, { modelsLoader } from "./pages/ModelPage.jsx";
 import ModelSpecsPage, { specsLoader } from "./pages/ModelSpecsPage.jsx";
 import ResourceListPage, { listLoader } from "./pages/ResourceListPage.jsx";
+import ResourceDetailsPage, { detailsLoader } from "./pages/ResourceDetailsPage.jsx";
 
 import {
   createBrowserRouter,
@@ -34,6 +35,12 @@ const router = createBrowserRouter(
         path="resources"
         element={<ResourceListPage />}
         loader={listLoader}
+        errorElement={<ErrorPage />}
+      />
+      <Route
+        path="resources/:resourceId"
+        element={<ResourceDetailsPage />}
+        loader={detailsLoader}
         errorElement={<ErrorPage />}
       />
 
