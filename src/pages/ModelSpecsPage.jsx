@@ -10,7 +10,6 @@ export async function specsLoader({ params }) {
   }
 
   const brand = models[0]?.brand;
-  // “Specs” как краткая статистика, раз у API нет настоящих характеристик
   const byType = new Map();
   for (const m of models) {
     const t = m.type?.type || "Unknown";
